@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WatchStore.Models.Deal>
+
+@{
+    ViewBag.Title = "Deals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title | Watch Store</title>
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="margin-top:8rem;">
+    <h2>Deals</h2>
+
+
+    <form id="formSearch" method="post">
+        <div class="row" id="SearchBox">
+            <div class="col-md-2"> Client Name</div>
+            <div class="col-md-2"> <input type="text" id="name" name="name" style="color:black;" /></div>
+            <div class="col-md-1">  </div>
+        </div>
+
+        <div class="row" id="SearchBox">
+            <div class="col-md-2"> Watch Type</div>
+            <div class="col-md-2"> <input type="text" id="type" name="type" style="color:black;" /></div>
+            <div class="col-md-1"> <input type="submit" id="submitsearch" value="Search" style="color:black;" /></div>
+        </div>
+        <div class="row" id="SearchBox">
+            <div class="col-md-2"> Watch Price</div>
+            <div class="col-md-2"> <input type="text" id="price" name="price" style="color:black;" /></div>
+        </div>
+    </form>
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.ClientFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch.WatchName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.ClientFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Watch.WatchName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DealID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.DealID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DealID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>

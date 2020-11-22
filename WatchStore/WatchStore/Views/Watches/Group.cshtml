@@ -1,0 +1,31 @@
+﻿@{ ViewBag.Title = "Group"; }
+@using WatchStore.Models
+@using WatchStore.Controllers
+@model List<Group<string, Watch>>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title | Watch Store</title>
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h2 style="margin-top:7rem; color:white;">Grouping Watches by Type</h2>
+
+    <table class="table" style="color: black; background-color:white;background-position:center; background-repeat: no-repeat; background-size: cover;">
+        <tbody>
+            @foreach (var group in Model)
+            {
+                <tr><th colspan="3" style=" font-size:20px; ">@group.Key</th></tr>
+                <tr><th>Gender</th><th style="padding-left:90rem;">Watch Name</th></tr> foreach (var Watch in group.Values)
+                                {
+                <tr><td>@Watch.Gender</td><td style="padding-left:90rem; font-size:15px;">@Watch.WatchName</td><td></tr>}
+                            }
+        </tbody>
+    </table>
+
+</body>

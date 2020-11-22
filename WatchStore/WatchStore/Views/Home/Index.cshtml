@@ -1,0 +1,573 @@
+﻿@model IEnumerable<WatchStore.Models.Watch>
+@{ ViewBag.Title = "Home";}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font: 400 15px/1.8 Lato, sans-serif;
+            color: #777;
+        }
+
+
+        h3, h4 {
+            margin: 10px 0 30px 0;
+            letter-spacing: 10px;
+            font-size: 20px;
+            color: #111;
+        }
+
+        .container {
+            padding: 80px 120px;
+        }
+
+        .person {
+            border: 10px solid transparent;
+            margin-bottom: 25px;
+            width: 80%;
+            height: 80%;
+            opacity: 0.7;
+        }
+
+            .person:hover {
+                border-color: #f1f1f1;
+            }
+
+        .carousel-inner img {
+            -webkit-filter: grayscale(90%);
+            filter: grayscale(90%); /* make all photos black and white */
+            width: 100%; /* Set width to 100% */
+            margin: auto;
+        }
+
+        .carousel-caption h3 {
+            color: #fff !important;
+        }
+
+        .bg-1 {
+            background: #2d2d30;
+            color: #bdbdbd;
+        }
+
+            .bg-1 h3 {
+                color: #fff;
+            }
+
+            .bg-1 p {
+                font-style: italic;
+            }
+
+        .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+
+            .thumbnail p {
+                margin-top: 15px;
+                color: #555;
+            }
+
+
+        #photo:hover {
+            width: 450px;
+            height: 230px;
+            -webkit-transition: -webkit-transform 1s,opacity 1s,background 1s,width 1s,height 1s,font-size 1s;
+            -webkit-border-radius: 15px;
+            -o-transition-property: width,height,-o-transform,background,font-size,opacity;
+            -o-transition-duration: 2s,2s,2s,3s,2s,2s;
+            -moz-transition-property: width,height,-o-transform,background,font-size,opacity;
+            -moz-transition-duration: 2s,2s,2s,3s,2s,2s;
+            transition-property: width,height,transform,background,font-size,opacity;
+            transition-duration: 2s,2s,2s,3s,2s,2s;
+            border-radius: 15px;
+            opacity: 0.5;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #f1f1f1;
+            border-radius: 0;
+            transition: .2s;
+        }
+
+            .btn:hover, .btn:focus {
+                border: 1px solid #333;
+                background-color: #fff;
+                color: #000;
+            }
+
+        .modal-header, h4, .close {
+            background-color: #333;
+            color: #fff !important;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .modal-header, .modal-body {
+            padding: 40px 50px;
+        }
+
+        .nav-tabs li a {
+            color: #777;
+        }
+
+        #googleMap {
+            width: 100%;
+            height: 400px;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+        .navbar {
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 0;
+            background-color: #2d2d30;
+            border: 0;
+            font-size: 11px !important;
+            letter-spacing: 4px;
+            opacity: 0.9;
+        }
+
+            .navbar li a, .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
+
+        .navbar-nav li a:hover {
+            color: #fff !important;
+        }
+
+        .navbar-nav li.active a {
+            color: #fff !important;
+            background-color: #29292c !important;
+        }
+
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+        }
+
+        .open .dropdown-toggle {
+            color: #fff;
+            background-color: #555 !important;
+        }
+
+        .dropdown-menu li a {
+            color: #000 !important;
+        }
+
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+
+        footer {
+            background-color: #2d2d30;
+            color: #f5f5f5;
+            padding: 32px;
+        }
+
+            footer a {
+                color: #f5f5f5;
+            }
+
+                footer a:hover {
+                    color: #777;
+                    text-decoration: none;
+                }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        textarea {
+            resize: none;
+        }
+    </style>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+      <!-- Container (Carousel Section) -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="https://k8q7r7a2.stackpathcdn.com/wp-content/uploads/2018/11/The-Seamaster-Chronicles-%E2%80%93-Part-2-How-the-Omega-Seamaster-Became-an-Icon-With-CEO-Raynald-Aeschlimann-and-Auctioneer-Thomas-Perazzi.jpg" alt="New York" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h1>OMEGA</h1>
+                    <p>Premium Luxury!</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://www.royalty.me/cache/w_1000,h_932,mode_crop/prospex%201700.jpg" alt="Chicago" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>SEIKO</h3>
+                    <p>To The Extreme!</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://filthylucre.com/wp-content/uploads/2019/08/dreamstime_xl_122537881.jpg" alt="Los Angeles" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>APPLE</h3>
+                    <p>The Smart Watch!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!-- Container (Team Section) -->
+    <div id="team" class="container text-center">
+        <h3 style="color:white;">THE TEAM</h3>
+        <p><em>WE LOVE WATCHES!</em></p>
+        <p>
+            We sell premium analog and smart watches!
+        </p>
+
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Barbara</strong></p><br>
+                <a href="#demo" data-toggle="collapse">
+                    <img src="https://media-exp1.licdn.com/dms/image/C5603AQEw2sxjHFLW5w/profile-displayphoto-shrink_200_200/0?e=1609977600&v=beta&t=QFolGrPA1TQw0y7z8whTuEg3l4yslvrdn6wy92M6GRw" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo" class="collapse">
+                    <p>Lead Manager</p>
+                    <a href="https://www.linkedin.com/in/barbaracorcoran/">LINKEDIN</a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Kevin</strong></p><br>
+                <a href="#demo2" data-toggle="collapse">
+                    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQFztoBPChLfwQ/profile-displayphoto-shrink_200_200/0?e=1609977600&v=beta&t=v30MRlwSjrdXtrrxwEPTf-qr6HCrPTfH7SX__TUprJo" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo2" class="collapse">
+                    <p>Lead Seller</p>
+                    <a href="https://www.linkedin.com/in/kevinolearytv/">LINKEDIN</a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Jenifer</strong></p><br>
+                <a href="#demo3" data-toggle="collapse">
+                    <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHAQDTVGt710Q/profile-displayphoto-shrink_200_200/0?e=1609977600&v=beta&t=4VgltsxBM4X6LpinzKKkbcGZWwp8xWEmyiyDp2ydeD8" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo3" class="collapse">
+                    <p>Lead Advertising</p>
+                    <a href="https://www.linkedin.com/in/thejlo/">LINKEDIN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (Brands Section) -->
+    <div id="brand" class="bg-1">
+        <div class="container">
+            <h3 class="text-center" style="color:white;">BRANDS</h3>
+            <p class="text-center">This is our Watch Brands</p>
+
+            <div class="row text-center">
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img id="photo" src="https://www.royalty.me/cache/w_1000,h_932,mode_crop/prospex%201700.jpg" alt="Paris" style="height:192px;width:100%;">
+                        <p><strong>SEIKO</strong></p>
+                    </div>
+                    <iframe style="width:100%; height:auto" src="https://www.youtube.com/embed/_yUzFtg201o?&autoplay=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img id="photo" src="https://k8q7r7a2.stackpathcdn.com/wp-content/uploads/2018/11/The-Seamaster-Chronicles-%E2%80%93-Part-2-How-the-Omega-Seamaster-Became-an-Icon-With-CEO-Raynald-Aeschlimann-and-Auctioneer-Thomas-Perazzi.jpg" alt="New York" style="height:100%;width:100%;">
+                        <p><strong>OMEGA</strong></p>
+                    </div>
+                    <iframe style="width:100%; height:auto" src="https://www.youtube.com/embed/jMkmTMArB70?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img id="photo" src="https://filthylucre.com/wp-content/uploads/2019/08/dreamstime_xl_122537881.jpg" alt="San Francisco" style="height:100%;width:100%;">
+                        <p><strong>APPLE</strong></p>
+                    </div>
+                    <iframe style="width:100%; height:auto" src="https://www.youtube.com/embed/TCMnrssX1NE" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (Contact Section) -->
+    <div id="contact" class="container">
+        <h3 class="text-center" style="color:white;">CONTACT</h3>
+        <p class="text-center"><em>We love our Clients!</em></p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <p>Feel free to contact with us!</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span>Tel-Aviv, ISRAEL</p>
+                <p><span class="glyphicon glyphicon-phone"></span>Phone: 03-9583359</p>
+                <p><span class="glyphicon glyphicon-envelope"></span>Email: WatchStore@mail.com</p>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <button class="btn pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h3 class="text-center" style="color:white;">From Our Team</h3>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Barbara</a></li>
+            <li><a data-toggle="tab" href="#menu1">Kevin</a></li>
+            <li><a data-toggle="tab" href="#menu2">Jenifer</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h2>Barbara, Manager</h2>
+                <p>Welcome to our site! Happey to see you :)</p>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <h2>Kevin, Seller</h2>
+                <p>Always a pleasure people! Hope you enjoyed it as much as I did!</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h2>Jenifer, Advertising</h2>
+                <p>I`m Wearing my watches all the time!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (Gallery Section) -->
+    <div id="gallery" class="bg-1">
+        <fieldset>
+            <h3 class="text-center" style="color:white;">GALLERY</h3>
+            <h3 class="text-center">Search Watch</h3>
+                <div  style="margin-left:8rem;">
+                    <form role="form" method="post">
+                        <div class="row">
+                            <div class="col-12 col-lg-10">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <select name="type" id="type" class="form-control">
+                                            <option value="">All Types</option>
+                                            <option value="Analog Watch">Analog Watch</option>
+                                            <option value="Digital Watch">Digital Watch</option>
+                                            <option value="Smart Watch">Smart Watch</option>
+                                            <option value="Sport Watch">Sport Watch</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <select name="brand" id="brand" class="form-control">
+                                            <option value="">Brand</option>
+                                            <option value="Seiko">Seiko</option>
+                                            <option value="Omega">Omega</option>
+                                            <option value="Apple">Apple</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <select name="gender" id="gender" class="form-control">
+                                            <option value="">Gender</option>
+                                            <option value="MAN">MAN</option>
+                                            <option value="WOMAN">WOMAN</option>
+                                            <option value="UNISEX">UNISEX</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <select name="price" id="price" class="form-control">
+                                            <option value="">Max Price</option>
+                                            <option value="10">100</option>
+                                            <option value="100">100</option>
+                                            <option value="1000">1000</option>
+                                            <option value="10000">10000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-2">
+                                <button type="submit" style="color:black;">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </fieldset>
+
+        <div class="mapouter">
+            <div class="gmap_canvas">
+                <iframe style="height:300px;width:100%;" id="gmap_canvas" src="https://maps.google.com/maps?q=ha-medina%20squre&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+            </div>
+        </div>
+
+        <div class="w3-row-padding">
+
+            @foreach (var item in Model)
+            {
+                <div class="w3-third w3-container w3-margin-bottom">
+                    <button id="button" data-name="@item.Brand.ToString()" class="button">
+                        @if (item.Brand.Equals("Seiko"))
+                        {
+                            <img id="@item.WatchID" src="https://www.royalty.me/cache/w_1000,h_932,mode_crop/prospex%201700.jpg" style="width: 360px; height: 250px;" class="w3-hover-opacity">}
+                        @if (item.Brand.Equals("Omega"))
+                        {
+                            <img id="@item.WatchID" src="https://k8q7r7a2.stackpathcdn.com/wp-content/uploads/2018/11/The-Seamaster-Chronicles-%E2%80%93-Part-2-How-the-Omega-Seamaster-Became-an-Icon-With-CEO-Raynald-Aeschlimann-and-Auctioneer-Thomas-Perazzi.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+                        @if (item.Brand.StartsWith("Apple"))
+                        {
+                            <img id="@item.WatchID" src="https://filthylucre.com/wp-content/uploads/2019/08/dreamstime_xl_122537881.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+                    </button>
+                    <div class="w3-container w3-black" style="width:370px">
+                        <h5>@Html.DisplayFor(modelItem => item.WatchName) - @Html.DisplayFor(modelItem => item.WatchType) </h5>
+                        <p>@Html.DisplayFor(modelItem => item.Gender) |  @Html.DisplayFor(modelItem => item.price)$ |  Water Resistant @Html.DisplayFor(modelItem => item.Resistant) | <a id="buy" item-name="@item.WatchID" href="@Url.Action("AddToCart", "Deals", new { watchid = item.WatchID})">BUY <span class="glyphicon glyphicon-shopping-cart"></span></a></p>
+                    </div>
+                </div>}
+        </div>
+
+        <script>
+            for (var i = 0; i < document.getElementsByClassName('button').length; i++) {
+                var button = document.getElementsByClassName('button');
+                button[i].onclick = click;
+
+                function click() {
+                    document.getElementById('gmap_canvas').src = "";
+                    var brand = this.getAttribute('data-name');
+
+                    if (brand === "Seiko") {
+                        document.getElementById('gmap_canvas').src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47522.46858344084!2d12.43484787845656!3d41.889538876809986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f606182fdbd79%3A0xd9ffc4897e6ef844!2sSeiko!5e0!3m2!1sen!2sil!4v1604921504856!5m2!1sen!2sil";
+                    }
+                    else if (brand === "Omega") {
+                        document.getElementById('gmap_canvas').src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39720.113438116954!2d-0.11842298350408165!3d51.52225844261747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876052ab2b4ea39%3A0xeb0ede53d00653b2!2sOMEGA%20Boutique%20-%20London%20Regent%20Street!5e0!3m2!1sen!2sil!4v1604921431566!5m2!1sen!2sil";
+                    }
+                    else {
+                        document.getElementById('gmap_canvas').src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13509.777071204022!2d34.80243696977539!3d32.16529260000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d488c142fac83%3A0xc1721ff4aa12d0fe!2sApple%20Herzliya!5e0!3m2!1sen!2sil!4v1604921264009!5m2!1sen!2sil";
+                    }
+                }
+            }
+        </script>
+
+    </div>
+
+    <!-- Weather API -->
+    <div class="weather" style="margin-top:5rem;"> <a class="weatherwidget-io" href="https://forecast7.com/en/32d0134d75/bat-yam/" data-label_1="TEL-AVIV" data-label_2="WEATHER" data-font="Times New Roman" data-icons="Climacons Animated" data-theme="weather_one">TEL-AVIV WEATHER</a></div>
+
+    <!-- Login -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Login content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4><span class="glyphicon glyphicon-ok-sign"></span>LOGIN</h4>
+                    <div class="row text-center" style="margin-right:2rem;"><span class="glyphicon glyphicon-link"></span> @Html.ActionLink("SignUp", "Create", "Clients")</div>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="post" action="@Url.Action("Login", "Home")">
+                        <div class="form-group">
+                            <label for="psw"><span class="glyphicon glyphicon-user"></span>Name</label>
+                            <input type="text" class="form-control" name="usrname" placeholder="Enter Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="usrname"><span class="glyphicon glyphicon-lock"></span>Password</label>
+                            <input type="text" class="form-control" name="usrpassword" placeholder="Enter Your Email">
+                        </div>
+                        <button type="submit" id="submitsearch" class="btn btn-block">
+                            Login
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); }
+        }(document, 'script', 'weatherwidget-io-js');
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Add smooth scrolling to all links in navbar + footer link
+            $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 900, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#photo').fadeToggle(0).fadeToggle(2000);
+        });
+    </script>
+</body>
+</html>

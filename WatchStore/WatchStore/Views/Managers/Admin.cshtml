@@ -1,0 +1,135 @@
+﻿@model IEnumerable<WatchStore.Models.Deal>
+
+@{ ViewBag.Title = "Admin"; }
+@using WatchStore.Controllers
+@using WatchStore.Models
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title | Watch Store</title>
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/Style/PropertiesStyle/Gallery.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+</head>
+
+<body>
+
+    <div class="multi-column" style="column-count: 2;">
+        <div>
+            <h1 style="margin-top:7rem; color:white;">Welcome @TempData["name"]!</h1>
+            <h2>Your Watches</h2>
+        </div>
+        <aside>
+            <canvas id="myCanvas" width="150" height="150" style="margin-top:5rem; margin-left:27rem;">
+                <img id="admin" width="0" height="0" src="@TempData["img"].ToString()">
+            </canvas>
+        </aside>
+    </div>
+
+    <h2>Site Watches</h2>
+    <div class="w3-row-padding">
+
+        @foreach (var item in Model)
+        {
+<div class="w3-third w3-container w3-margin-bottom">
+
+    @if (item.Watch.Brand.Equals("Seiko"))
+    {
+<img id="@item.WatchID" src="https://www.royalty.me/cache/w_1000,h_932,mode_crop/prospex%201700.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+    @if (item.Watch.Brand.Equals("Omega"))
+    {
+<img id="@item.WatchID" src="https://k8q7r7a2.stackpathcdn.com/wp-content/uploads/2018/11/The-Seamaster-Chronicles-%E2%80%93-Part-2-How-the-Omega-Seamaster-Became-an-Icon-With-CEO-Raynald-Aeschlimann-and-Auctioneer-Thomas-Perazzi.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+    @if (item.Watch.Brand.StartsWith("Apple"))
+    {
+<img id="@item.Watch.WatchID" src="https://filthylucre.com/wp-content/uploads/2019/08/dreamstime_xl_122537881.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+
+    <div class="w3-container w3-black" style="width:350px">
+        <h5>@Html.DisplayFor(modelItem => item.Watch.WatchName) - @Html.DisplayFor(modelItem => item.Watch.WatchType) </h5>
+        <p>@Html.DisplayFor(modelItem => item.Watch.Gender) |  @Html.DisplayFor(modelItem => item.Watch.price)$ |  Water Resistant @Html.DisplayFor(modelItem => item.Watch.Resistant)</p>
+    </div>
+</div>}
+    </div>
+
+    <h2>Site Clients</h2>
+    <table class="table" style="background-color:black;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.ClientFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.ClientLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Password)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.ClientFirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.ClientLastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.PhoneNumber)
+    </td>
+    <td>
+        ********
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Index", "Clients")
+    </td>
+</tr>
+}
+
+    </table>
+
+
+    <h2>Site Deals</h2>
+    <table class="table" style="background-color:black;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.ClientFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watch.WatchName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.ClientFirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Watch.WatchName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Index", "Deals")
+    </td>
+</tr>}
+
+    </table>
+
+</body>

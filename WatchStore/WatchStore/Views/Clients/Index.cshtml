@@ -1,0 +1,79 @@
+﻿@model IEnumerable<WatchStore.Models.Client>
+
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title | Watch Store</title>
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="margin-top:8rem;">
+    <h2>Clients</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ClientID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ClientID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ClientID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+
+
+<style>
+    #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>

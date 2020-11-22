@@ -1,0 +1,62 @@
+﻿@model List<List<WatchStore.Models.Watch>>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WatchStore.Controllers
+@using WatchStore.Models
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title | Watch Store</title>
+    <link rel="icon" href="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-w-letter-logo-design-png-image_1770441.jpg" type="image/x-icon">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body style="margin-top:5rem;">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 class="text-center">  @TempData["name"].ToString() Cart  | <input id="checkout" name="checkout" type="submit" value="Check Out" class="btn btn-default" /> </h1>
+        <h3 class="text-center" style="background-color:black"> Total Price : @TempData["totalamount"].ToString()$ </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="w3-row-padding">
+
+                @foreach (var watch in Model)
+                {
+                    var item = watch.First();
+
+                    <div class="w3-third w3-container w3-margin-bottom">
+                        <button id="button" data-name="@item.Brand.ToString()" class="button">
+                            @if (item.Brand.Equals("Seiko"))
+                            {
+                                <img id="@item.WatchID" src="https://www.royalty.me/cache/w_1000,h_932,mode_crop/prospex%201700.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+                            @if (item.Brand.Equals("Omega"))
+                            {
+                                <img id="@item.WatchID" src="https://k8q7r7a2.stackpathcdn.com/wp-content/uploads/2018/11/The-Seamaster-Chronicles-%E2%80%93-Part-2-How-the-Omega-Seamaster-Became-an-Icon-With-CEO-Raynald-Aeschlimann-and-Auctioneer-Thomas-Perazzi.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+                            @if (item.Brand.StartsWith("Apple"))
+                            {
+                                <img id="@item.WatchID" src="https://filthylucre.com/wp-content/uploads/2019/08/dreamstime_xl_122537881.jpg" style="width: 350px; height: 250px;" class="w3-hover-opacity">}
+                        </button>
+                        <div class="w3-container w3-black" style="width:362px">
+                            <h5>@Html.DisplayFor(modelItem => item.WatchName) - @Html.DisplayFor(modelItem => item.WatchType) | @watch.Count() </h5>
+                            <p>@Html.DisplayFor(modelItem => item.Gender) |  @Html.DisplayFor(modelItem => item.price)$ | Resistant @Html.DisplayFor(modelItem => item.Resistant) | <a href="@Url.Action("RemoveFromCart", "Deals", new { watchid = item.WatchID})">Remove <span class="glyphicon glyphicon-remove"></span></a> </p>
+                        </div>
+                    </div>}
+                }
+            </div>
+        </div>
+    </div>
+    }
+</body>
